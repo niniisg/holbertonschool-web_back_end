@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+this module provides a function to calculate
+"""
 from typing import Iterable, Sequence, Tuple, List
 
 

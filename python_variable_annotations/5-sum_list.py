@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-from typing import List
+"""
+Module 5-sum_list
+This module provides a function to sum a list of numbers.
+"""
 
 
-def sum_list(input_list: List[float]) -> float:
+def sum_list(numbers: list[float]) -> float:
     """
-    this is a function that takes a list of floats as input
+    Sums a list of floating-point numbers.
 
-    :arg input_list: the list of float numbers
-    :return: returns the sum of float numbers in a list
+    Args:
+        numbers (list[float]): A list of floating-point numbers to sum.
+
+    Returns:
+        float: The sum of the numbers in the list.
     """
-    return sum(input_list)
+    return sum(numbers)

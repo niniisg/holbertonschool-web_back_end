@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+this module contains a function that converts
+a key and value to a tuple where value is squared
+"""
 from typing import Union, Tuple
 
 

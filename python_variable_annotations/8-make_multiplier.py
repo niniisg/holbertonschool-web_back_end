@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from typing import callable
+from typing import Callable
 
 
 def make_multiplier(multiplier: float) -> Callable[[float], float]:
@@ -8,22 +8,22 @@ def make_multiplier(multiplier: float) -> Callable[[float], float]:
     Creates a multiplier function.
 
     Args:
-        multiplier (float): The multiplier value.
+        multiplier (float): The multiplier to use in the returned function.
 
     Returns:
         Callable[[float], float]: A function that takes a float and returns the product of it and the multiplier.
     """
 
-    def mult(x: float) -> float:
+    def multi(m: float) -> float:
         """
-        Multiplies the input by the multiplier.
+        Multiplies the input by the predefined multiplier.
 
         Args:
-            x (float): The number to be multiplied.
+            m (float): The number to be multiplied.
 
         Returns:
-            float: The product of x and the multiplier.
+            float: The result of the multiplication.
         """
-        return x * multiplier
+        return m * multiplier
 
-    return mult
+    return multi

@@ -2,8 +2,7 @@
 """
 this module provides a function that calculates
 the sum of list containing int and float
-"""  #!/usr/bin/env python3
-
+"""
 from typing import Union, List
 
 

@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+"""
+this module provides a function to create
+multiplier functions, that takes a float
+as an argument
+"""
 from typing import Callable
 
 

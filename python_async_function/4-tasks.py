@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
+"""
+This module contains an asynchronous routine that spawns multiple
+coroutines and collects their results in a list.
+"""
 
-import asyncio
 from typing import List
+import asyncio
 
+
+# Import wait_random from the previous Python file
 wait_random = __import__("0-basic_async_syntax").wait_random
 
 
-async def task_wait_n(max_delay: int) -> List[float]:
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
     Spawns wait_random n times with the specified max_delay.
 

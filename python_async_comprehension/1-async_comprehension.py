@@ -6,7 +6,7 @@ using async comprohension
 import asyncio
 from typing import List
 
-async_generator = __import__('0-async_generator').async_generator
+async_generator = __import__("0-async_generator").async_generator
 """
 this coroutine collects numbers from async_generator
 function using async_comprehension

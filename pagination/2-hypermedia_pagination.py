@@ -48,32 +48,23 @@ class Server:
         end_index = start_index + page_size
         return (start_index, end_index)
 
-    def get_hyper(self, page: int = 1, page_size: int = 10):
-        """Returns a dictionary of hypermedia key-value pairs"""
-
-        start_index, end_index = self.index_range(page, page_size)
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+        """
+        Returns a dictionary of hypermedia
+        key-value pairs
+        """
         dataset = self.dataset()
+        total_pages = math.ceil(len(dataset) / page_size)
 
-        prev_page = None
-        if (page > 1):
-            prev_page = page - 1
+        start_index = (page - 1) * page_size
+        end_index = start_index + page_size
+        data = dataset[start_index:end_index]
 
-        next_page = None
-        end_index = page * page_size
-        if (len(self.dataset()) > end_index):
-            next_page = page + 1
-
-        total_pages = int(len(self.dataset()) / 10)
-        if (page_size > 0):
-            total_pages = int(len(self.dataset()) / page_size)
-
-        hyper_dict = {
-            "page_size": len(self.get_page(page, page_size)),
+        return{
+            "page_size": len(data),
             "page": page,
-            "data": self.get_page(page, page_size),
-            "next_page": next_page,
-            "prev_page": prev_page,
-            "total_pages": total_pages
+            "data": data,
+            "next_page": page + 1 if page < total_pages else None,
+            "prev_page": page - 1 if page > 1 else None,
+            "total_page": total_pages,
         }
-
-        return hyper_dict

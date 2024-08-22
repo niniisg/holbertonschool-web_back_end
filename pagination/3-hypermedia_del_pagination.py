@@ -5,12 +5,12 @@ Deletion-resilient hypermedia pagination
 
 import csv
 import math
-from typing import List
+from typing import List, Dict
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Server class to paginate a database of popular baby names."""
+
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
@@ -18,8 +18,7 @@ class Server:
         self.__indexed_dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset
-        """
+        """Cached dataset"""
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
@@ -29,8 +28,7 @@ class Server:
         return self.__dataset
 
     def indexed_dataset(self) -> Dict[int, List]:
-        """Dataset indexed by sorting position, starting at 0
-        """
+        """Dataset indexed by sorting position, starting at 0"""
         if self.__indexed_dataset is None:
             dataset = self.dataset()
             truncated_dataset = dataset[:1000]
@@ -40,25 +38,20 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        assert type(index) == int
-        assert type(page_size) == int
-        assert index >= 0
-        assert index < len(self.indexed_dataset())
+        assert isinstance(index, int) and index >= 0
+        assert isinstance(page_size, int) and page_size > 0
 
-        csv = self.indexed_dataset()
-        data = []
+        dataset = self.dataset()
+        indexed_dataset = self.indexed_dataset()
 
-        next_index = index
+        if index is None:
+            index = 0
 
-        for item in range(page_size):
-            while not csv.get(next_index):
-                next_index += 1
-            data.append(csv.get(next_index))
-            next_index += 1
+        result = {"index": index, "next_index": index + page_size, "data": []}
+        while len(result["data"]) < page_size and index < len(dataset):
+            if index in indexed_dataset:
+                result["data"].append(indexed_dataset[index])
+                index += 1
+        result["next_index"] = index
 
-        return {
-            "index": index,
-            "data": data,
-            "page_size": page_size,
-            "next_index": next_index
-            }
+        return result

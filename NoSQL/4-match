@@ -1,2 +1,2 @@
 // writing a script that list document with name="Holberton school"
-db.school.find({ name: 'Holberton shcool' })
+db.school.find({ name: 'Holberton school' })

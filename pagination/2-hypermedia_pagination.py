@@ -38,8 +38,7 @@ class Server:
             return []
         return dataset[start:end]
 
-    def index_range(self, page: int = 1,
-                    page_size: int = 10) -> Tuple[int, int]:
+    def index_range(self, page: int = 1, page_size: int = 10) -> Tuple[int, int]:
         """
         retrurns tuple containing the start index and the
         end index for the given pagination parameters.
@@ -53,16 +52,16 @@ class Server:
         Returns a dictionary of hypermedia
         key-value pairs
         """
-        dataset = self.dataset()
-        total_items = len(dataset)
+        dataset = len(self.dataset())
         data = self.get_page(page, page_size)
-        total_pages = math.ceil(total_items / page_size)
-
+        total_pages = math.ceil(dataset/ page_size)
+    
         return {
-            "page_size": len(data),
-            "page": page,
-            "data": data,
-            "next_page": page + 1 if page < total_pages else None,
-            "prev_page": page - 1 if page > 1 else None,
-            "total_page": total_pages,
+                "page": page,
+                "page_size": page_size if page < total_pages else 0,
+                "data": data,
+                "next_page": page + 1 if page + 1 < total_pages else None,
+                "prev_page": page - 1 if page - 1 > 0 else None,
+                "total_pages": total_pages
         }
+       

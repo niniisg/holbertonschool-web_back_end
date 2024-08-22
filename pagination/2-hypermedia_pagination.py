@@ -54,13 +54,11 @@ class Server:
         key-value pairs
         """
         dataset = self.dataset()
-        total_pages = math.ceil(len(dataset) / page_size)
+        total_items = len(dataset)
+        data = self.get_page(page, page_size)
+        total_pages = math.ceil(total_items / page_size)
 
-        start_index = (page - 1) * page_size
-        end_index = start_index + page_size
-        data = dataset[start_index:end_index]
-
-        return{
+        return {
             "page_size": len(data),
             "page": page,
             "data": data,

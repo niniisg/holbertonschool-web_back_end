@@ -6,4 +6,9 @@ in a collection
 """
 
 def insert_school(mongo_collection, **kwargs):
-    return mongo_collection.insert_one(kwargs).inserted_id
+    """
+    inserts a new document in a
+    collection based on kwargs
+    """
+    ins = mongo_collection.insert_one(kwargs)
+    return ins.inserted_id

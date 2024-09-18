@@ -5,7 +5,8 @@ function countStudents(path) {
     const listCS = [];
     const listSWE = [];
 
-    const data = fs.readFileSync(path, { encoding: 'utf8', flag: 'r' });
+    const data = fs.readFileSync(path,
+         { encoding: 'utf8', flag: 'r' });
     const rows = data.trim().split('\n');
 
     for (let i = 1; i < rows.length; i += 1) {

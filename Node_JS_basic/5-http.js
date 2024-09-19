@@ -1,32 +1,28 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
 
-//const hostname = '127.0.0.1';
-const port = 1245;
-
 const app = http.createServer(async (req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-
-  if (req.url === '/') {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  const { url } = req;
+  const path = process.argv[2];
+  if (url === '/') {
     res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
-    let dbInfo = 'This is the list of our students\n';
-
-    try {
-      const studentData = await countStudents(process.argv[2]);
-      dbInfo += studentData;
-      res.end(dbInfo);
-    } catch (err) {
-      dbInfo += 'Cannot load the database';
-      res.end(dbInfo);
+  } else if (url === '/students') {
+    if (path !== null) {
+      const msg = 'This is the list of our students\n';
+      try {
+        const students = await countStudents(path);
+        res.end(`${msg}${students.join('\n')}`);
+      } catch (err) {
+        res.end(`${msg}${err.message}`);
+      }
     }
   } else {
-    res.statusCode = 404;
-    res.end('404 Not Found');
+    res.write('Not Found');
+    res.end();
   }
 });
 
-app.listen(port);
+app.listen(1245);
 
-module.exports = app
+module.exports = app;

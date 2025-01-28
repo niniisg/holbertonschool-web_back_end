@@ -4,7 +4,7 @@ BaseCaching module
 """
 from base_caching import BaseCaching
 
-class BaseCache(BaseCaching):
+class BasicCache(BaseCaching):
     """
     a class that manage a cache, Inherits
     from BaseCaching
@@ -15,7 +15,7 @@ class BaseCache(BaseCaching):
         adds an item to cache if both key
         and  item are not None
         """
-        if key is None and item is None:
+        if key is not None and item is not None:
             self.cache_data[key] = item
 
     def get(self, key):
@@ -27,5 +27,5 @@ class BaseCache(BaseCaching):
             the value for key if it exists, otherwise None.
         """
         if key not in self.cache_data:
-          return self.cache_data[key]
-        return None
+            return None
+        return self.cache_data[key]

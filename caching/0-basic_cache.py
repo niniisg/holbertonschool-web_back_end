@@ -27,5 +27,5 @@ class BaseCache(BaseCaching):
             the value for key if it exists, otherwise None.
         """
         if key not in self.cache_data:
-            return None
-        return self.cache_data[key]
+          return self.cache_data[key]
+        return None

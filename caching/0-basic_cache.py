@@ -1,13 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 BaseCaching module
 """
-
-
 from base_caching import BaseCaching
 
-
-class BaseCaching(BaseCaching):
+class BaseCache(BaseCaching):
     """
     a class that manage a cache, Inherits
     from BaseCaching

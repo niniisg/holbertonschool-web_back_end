@@ -4,6 +4,7 @@ BaseCaching module
 """
 from base_caching import BaseCaching
 
+
 class BasicCache(BaseCaching):
     """
     a class that manage a cache, Inherits

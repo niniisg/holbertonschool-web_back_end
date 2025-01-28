@@ -2,7 +2,9 @@
 """
 BaseCaching module
 """
-from base_caching import BaseCaching # type: ignore
+
+
+from base_caching import BaseCaching
 
 
 class BaseCaching(BaseCaching):
@@ -27,6 +29,6 @@ class BaseCaching(BaseCaching):
         Returns:
             the value for key if it exists, otherwise None.
         """
-        if key is None or key not in self.cache_data:
+        if key not in self.cache_data:
             return None
         return self.cache_data[key]

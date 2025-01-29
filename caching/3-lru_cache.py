@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ LRUCache module
     Implements an LRU (Least Recently Used) caching system.
 """

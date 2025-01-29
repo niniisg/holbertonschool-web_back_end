@@ -18,7 +18,7 @@ class LRUCache(BaseCaching):
         if key is not None and item is not None:
             if key in self.cache_data:
                 self.order.remove(key)
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 discard = self.order.pop(0)
                 del self.cache_data[discard]
                 print(f"DISCARD: {discard}")

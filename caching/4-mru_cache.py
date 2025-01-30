@@ -12,7 +12,8 @@ class MRUCache(BaseCaching):
 
     def __init__(self):
         """
-        Initializes the MRUCache and sets up an empty order list.
+        Initializes the MRUCache
+          sets up an empty order list.
         """
         super().__init__()
         self.order = []
@@ -33,11 +34,10 @@ class MRUCache(BaseCaching):
 
     def get(self, key):
         """
-        Retrieves an item from the cache and marks
-        it as most recently used.
+        Retrieves an item from the cache
         """
         if key in self.cache_data:
             self.order.remove(key)
             self.order.append(key)
-            return self.cache_data[key]
+            return self.cache_data[key, None]
         return None

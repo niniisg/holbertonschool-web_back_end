@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 MRUCache module
 """
 from base_caching import BaseCaching
@@ -9,11 +9,9 @@ class MRUCache(BaseCaching):
     """
     defines a MRUCache system
     """
-
     def __init__(self):
         """
         Initializes the MRUCache
-          sets up an empty order list.
         """
         super().__init__()
         self.order = []
@@ -39,5 +37,5 @@ class MRUCache(BaseCaching):
         if key in self.cache_data:
             self.order.remove(key)
             self.order.append(key)
-            return self.cache_data[key, None]
+            return self.cache_data[key]
         return None

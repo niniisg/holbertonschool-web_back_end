@@ -5,6 +5,7 @@ Regex-ing
 """
 
 import re
+
 """
 module for readacting sensitive
 information in log messages
@@ -19,7 +20,7 @@ def filter_datum(
     """
     for field in fields:
         message = re.sub(
-            f"{field}=.*{separator}",
-            f"{field}={redaction}{separator}", message
+            field + "=.*" + separator, field + "=" + redaction + separator, message
         )
+
     return message

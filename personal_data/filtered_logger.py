@@ -13,15 +13,11 @@ information in log messages
 """
 
 
-def filter_datum(
-    fields: list[str], redaction: str, message: str, separator: str
-) -> str:
-    """
-    redacts specified fields in a message
-    """
-    for field in fields:
-        message = re.sub(
-            field + "=.*" + separator, field + "=" + redaction + separator, message
-        )
+import re
 
-    return message
+def filter_datum(fields, redaction, message, separator):
+    return re.sub(
+        rf'({"|".join(fields)})=[^{separator}]*',
+        lambda m: f'{m.group(1)}={redaction}',
+        message
+    )

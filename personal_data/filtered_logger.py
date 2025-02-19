@@ -5,14 +5,11 @@ Regex-ing
 """
 
 import re
-
-"""
-module for readacting sensitive
-information in log messages
-"""
+from typing import List
 
 
-def filter_datum(fields, redaction, message, separator):
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, separator: str) -> str:
     """
     Args:
         This function takes a list of fields,
@@ -20,8 +17,7 @@ def filter_datum(fields, redaction, message, separator):
     Returns:
         A string with the specified fields redacted.
     """
-    return re.sub(
-        rf'({"|".join(fields)})=[^{separator}]*',
-        lambda m: f"{m.group(1)}={redaction}",
-        message,
-    )
+    for f in fields:
+        message = re.sub(f + "=.*?" + separator,
+                         f + "=" + redaction + separator, message)
+    return message

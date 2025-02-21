@@ -47,7 +47,7 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def not_found(error) -> str:
+def unauthorized(error) -> str:
     """
     Error handler-Unauthorized
     """
@@ -55,7 +55,7 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(403)
-def not_found(error) -> str:
+def forbidden(error) -> str:
     """GET /api/v1/forbidden
     Forbidden handler
     """

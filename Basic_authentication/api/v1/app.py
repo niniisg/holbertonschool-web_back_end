@@ -19,12 +19,12 @@ auth = None
 AUTH_TYPE = getenv("AUTH_TYPE")
 
 
-
 if AUTH_TYPE == "basic_auth":
     auth = BasicAuth()
 
 elif AUTH_TYPE == "auth":
     auth = Auth()
+
 
 @app.before_request
 def before_request():
@@ -57,7 +57,7 @@ def not_found(error) -> str:
 @app.errorhandler(403)
 def not_found(error) -> str:
     """GET /api/v1/forbidden
-        Forbidden handler
+    Forbidden handler
     """
     return jsonify({"error": "Forbidden"}), 403
 

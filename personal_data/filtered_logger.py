@@ -9,8 +9,9 @@ from typing import List
 import logging
 
 
-def filter_datum(fields: List[str], redaction: str,
-                 message: str, separator: str) -> str:
+def filter_datum(
+    fields: List[str], redaction: str, message: str, separator: str
+) -> str:
     """
     Args:
         This function takes a list of fields,
@@ -19,18 +20,14 @@ def filter_datum(fields: List[str], redaction: str,
         A string with the specified fields redacted.
     """
     for f in fields:
-       message = re.sub(
-            f"{f}=.*?{separator}",
-            f"{f}={redaction}{separator}",
-            message
-        )
-       
-       import logging
+        message = re.sub(f"{f}=.*?{separator}",
+                         f"{f}={redaction}{separator}", message)
+
+        import logging
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """Redacting Formatter class"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"

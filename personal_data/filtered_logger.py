@@ -36,57 +36,10 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
-        super().__init__(self.FORMAT)
+        super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """Filter the record and redact specified fields."""
-        return filter_datum(
-            self.fields, self.REDACTION, super().format(record), self.SEPARATOR
-        )
-
-
-def get_logger() -> logging.Logger:
-    """function that returns a logging.Logger object"""
-    PII_FIELDS = ["name", "email", "address"]  # Define tus campos aquí
-    logger = logging.getLogger("user_data")
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
-    stream_handler = logging.StreamHandler()
-    formatter = RedactingFormatter(fields=PII_FIELDS)
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
-    return logger
-
-
-def get_db():
-    """Establish a connection to
-    the MySQL database using environment variables"""
-
-    db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
-    db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
-    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
-
-    if not db_name:
-        raise ValueError(
-            "The environment variable PERSONAL_DATA_DB_NAME is required."
-            )
-
-    try:
-        connection = mysql.connector.connect(
-            host=db_host, user=db_username,
-            password=db_password, database=db_name
-        )
-
-        if connection.is_connected():
-            print(
-                "Successfully connected to the database"
-                )
-            return connection
-        else:
-            print("Failed to connect to the database")
-            return None
-    except Error as err:
-        print(f"Error: {err}")
-        return None
+        from filtered_logger import filter_datum
+        record.msg = filter_datum(self.fields, self.REDACTION, record.msg, self.SEPARATOR)
+        return super().format(record)

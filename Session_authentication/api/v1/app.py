@@ -9,6 +9,8 @@ from flask_cors import CORS, cross_origin
 import os
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
+from api.v1.auth.session_auth import SessionAuth
+
 
 
 app = Flask(__name__)
@@ -16,15 +18,10 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
-AUTH_TYPE = getenv("AUTH_TYPE")
+auth_type = getenv('AUTH_TYPE')
 
-
-if AUTH_TYPE == "basic_auth":
-    auth = BasicAuth()
-
-elif AUTH_TYPE == "auth":
-    auth = Auth()
-
+if auth_type == 'session_auth':
+    auth = SessionAuth()
 
 @app.before_request
 def before_request():
@@ -35,12 +32,11 @@ def before_request():
                       "/api/v1/unauthorized/", "/api/v1/forbidden/"]
     if not auth.require_auth(request.path, excluded_paths):
         return
-    if auth.authorization_header(request) is None:
+    if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
         abort(401)
     request.current_user = auth.current_user(request)
     if request.current_user is None:
         abort(403)
-
 
 @app.errorhandler(404)
 def not_found(error) -> str:

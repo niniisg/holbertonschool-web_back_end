@@ -11,7 +11,8 @@ class Auth:
     Base class for authentication
     """
 
-    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
+    def require_auth(self, path:
+                     str, excluded_paths: List[str]) -> bool:
         """
         Args:
             Check if a path requires authentication
@@ -20,7 +21,7 @@ class Auth:
         """
         if path is None:
             return True
-        if excluded_paths is None or path not in excluded_paths == []:
+        if excluded_paths is None or path not in excluded_paths or excluded_paths == []:
             return True
 
         if not path.endswith("/"):

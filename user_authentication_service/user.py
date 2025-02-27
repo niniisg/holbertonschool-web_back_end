@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
 module User using SQLAlchemy
-Defines the users class
-which maps to the users table
 """
 
 from sqlalchemy import Column, Integer, String
@@ -13,7 +11,7 @@ Base = declarative_base()
 
 class User(Base):
     """
-    Repesents the users table
+    Repesents the users table system
     """
 
     __tablename__ = "users"

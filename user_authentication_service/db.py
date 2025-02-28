@@ -10,6 +10,7 @@ from user import Base, User
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 
+
 class DB:
     """DB class
     """
@@ -53,5 +54,5 @@ class DB:
             raise NoResultFound("No user found with the given parameters.")
         except InvalidRequestError:
             raise InvalidRequestError("Invalid query parameters.")
-        
+
         return user

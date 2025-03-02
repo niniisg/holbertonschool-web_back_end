@@ -20,10 +20,10 @@ def _hash_password(password: str) -> bytes:
 
     return hashed_password
 
+
 def _generate_uuid() -> str:
     """Generate a new UUID."""
     return str(uuid.uuid4())
-
 
 
 class Auth:
@@ -49,7 +49,7 @@ class Auth:
         """Validate the login credentials."""
         try:
             user = self._db.find_user_by(email=email)
-            if bcrypt.checkpw(password.encode('utf-8'), user.hashed_password):
+            if bcrypt.checkpw(password.encode("utf-8"), user.hashed_password):
                 return True
             else:
                 return False

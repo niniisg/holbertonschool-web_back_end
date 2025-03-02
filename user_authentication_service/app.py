@@ -14,23 +14,23 @@ app = Flask(__name__)
 def home():
     return jsonify({"message": "Bienvenue"})
 
-
-
-@app.route("/", methods=["POST"])
+@app.route("/users", methods=["POST"])
 def register_user() -> str:
-    """
-    """
-    email = request.form.get("email")
-    password = request.form.get("password")
+    """Register user route"""
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     if not email or not password:
-        return jsonify({"message": "email and password required"}), 400
+        return jsonify({"message": "email and password are required"}), 400
 
     try:
-        AUTH.register_user(email, password)
-        return jsonify({"email": email, "message": "user created"})
-    except ValueError:
+        user = AUTH.register_user(email, password)
+
+        return jsonify({"email": email, "message": "user created"}), 200
+    except Exception:
         return jsonify({"message": "email already registered"}), 400
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")

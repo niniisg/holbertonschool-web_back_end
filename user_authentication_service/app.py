@@ -14,11 +14,12 @@ app = Flask(__name__)
 def home():
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route("/users", methods=["POST"])
 def register_user() -> str:
     """Register user route"""
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.form.get("email")
+    password = request.form.get("password")
 
     if not email or not password:
         return jsonify({"message": "email and password are required"}), 400
@@ -29,7 +30,6 @@ def register_user() -> str:
         return jsonify({"email": email, "message": "user created"}), 200
     except Exception:
         return jsonify({"message": "email already registered"}), 400
-
 
 
 if __name__ == "__main__":

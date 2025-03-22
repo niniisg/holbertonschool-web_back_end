@@ -10,7 +10,8 @@ from functools import wraps
 
 def count_calls(method: Callable) -> Callable:
     """
-    Decorator that counts how many times a method is called
+    Decorator that counts how many
+    times a method is called
     """
     
     @wraps(method)
@@ -66,7 +67,8 @@ class Cache:
         
     def get(self, key: str, fn: Optional[Callable] = None): 
         """
-        Get data from Redis and convert it using the callable fn
+        Get data from Redis and convert
+        it using the callable fn
         """
         data = self._redis.get(key)
         if data is None:

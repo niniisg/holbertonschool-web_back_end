@@ -45,6 +45,10 @@ def replay(method: Callable):
     """
     Display the history of calls of a particular function
     """
+    if not hasattr(method, "__self__") or not hasattr(method.__self__, "_redis"):
+        print(f"Cannot replay {method.__qualname__}: not a Cache method")
+        return
+        
     redis_instance = method.__self__._redis 
     method_name = method.__qualname__
     
@@ -71,8 +75,9 @@ class Cache:
         """
         self._redis = redis.Redis()
         self._redis.flushdb()
-    @call_history
+
     @count_calls
+    @call_history
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Store data in Redis and return the key

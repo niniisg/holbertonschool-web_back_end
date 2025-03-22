@@ -4,7 +4,7 @@ Redis basic operations module
 """
 import redis
 import uuid
-from typing import Union, Callable, Optional, Any
+from typing import Union, Callable, Optional
 from functools import wraps
 
 
@@ -43,7 +43,7 @@ class Cache:
         self._redis.set(key, data)
         return key
         
-    def get(self, key: str, fn: Optional[Callable] = None) -> Any:
+    def get(self, key: str, fn: Optional[Callable] = None): 
         """
         Get data from Redis and convert it using the callable fn
         """
